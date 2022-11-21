@@ -1,10 +1,3 @@
-import model.LP;
-
-import java.util.Date;
-
-import model.Copy;
-import model.FriendContainer;
-import model.LPContainer;
 import tui.Menus.MainMenu;
 
 /**
@@ -19,10 +12,8 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        FriendContainer friendContainer = new FriendContainer();
-        LPContainer lpContainer = new LPContainer();
 
-        MainMenu mainMenu = new MainMenu(friendContainer, lpContainer);
+        MainMenu mainMenu = new MainMenu();
         mainMenu.start();
     }
 }

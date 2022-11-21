@@ -3,11 +3,11 @@ package tui.Menus;
 import java.util.ArrayList;
 import java.util.Date;
 
+import controller.FriendController;
+import controller.LPController;
 import model.Copy;
 import model.Friend;
-import model.FriendContainer;
 import model.LP;
-import model.LPContainer;
 import model.Loan;
 import tui.TextInput;
 import tui.TextOptions;
@@ -20,8 +20,8 @@ import tui.TextOptions;
  */
 public class LoanMenu {
     // instance variables
-    private FriendContainer friendContainer;
-    private LPContainer lpContainer;
+    private FriendController friendController;
+    private LPController lpController;
     private TextInput textInput;
 
     /**
@@ -29,10 +29,10 @@ public class LoanMenu {
      * 
      * @param loanContainer
      */
-    public LoanMenu(FriendContainer friendContainer, LPContainer lpContainer) {
+    public LoanMenu() {
         // initialise instance variables
-        this.friendContainer = friendContainer;
-        this.lpContainer = lpContainer;
+        friendController = new FriendController();
+        lpController = new LPController();
         textInput = new TextInput();
     }
 
@@ -69,12 +69,12 @@ public class LoanMenu {
         // Necessary to clear the buffer
         textInput.getStringInput();
         String title = textInput.getStringInput();
-        LP lp = lpContainer.findLPByTitle(title);
-        ArrayList<Copy> copies = lpContainer.getCopies(lp);
+        LP lp = lpController.findLPByTitle(title);
+        ArrayList<Copy> copies = lpController.getCopies(lp);
         if (copies != null) {
             System.out.println("Indtast telefonnummer på låner");
             String phone = textInput.getStringInput();
-            Friend friend = friendContainer.findFriend(phone);
+            Friend friend = friendController.findFriend(phone);
 
             if (friend != null) {
                 Copy copy = copies.get(0);
@@ -101,7 +101,7 @@ public class LoanMenu {
         System.out.println("\n********** Returner lån **********");
         System.out.println("Indtast telefonnummer på låner");
         String phone = textInput.getStringInput();
-        Friend friend = friendContainer.findFriend(phone);
+        Friend friend = friendController.findFriend(phone);
         if (friend != null) {
             System.out.println("Indtast serienummer på LP'en");
             int serialNumber = textInput.getIntInput();
@@ -110,7 +110,7 @@ public class LoanMenu {
             if (loan != null) {
                 loan.setState(false);
                 friend.getLoans().getLoanList().remove(loan);
-                ArrayList<Copy> copies = lpContainer.getCopies(loan.getCopy().getOriginalLp());
+                ArrayList<Copy> copies = lpController.getCopies(loan.getCopy().getOriginalLp());
                 copies.add(loan.getCopy());
                 System.out.println("LP'en er nu returneret");
             } else {
@@ -126,7 +126,7 @@ public class LoanMenu {
      */
     private void showAllLoans() {
         System.out.println("\n********** Udskriv alle lån **********");
-        for (Friend friend : friendContainer.getFriends()) {
+        for (Friend friend : friendController.getFriends()) {
             if (friend.getLoans().getLoanList().size() != 0) {
                 System.out.println("\n");
                 friend.printInfo();

@@ -1,5 +1,7 @@
 package model;
 
+import controller.LoanController;
+
 /**
  * Friend class.
  * 
@@ -13,7 +15,7 @@ public class Friend {
     private String postalCode;
     private String city;
     private String phone;
-    private LoanContainer loanContainer;
+    private LoanController loanController;
 
     /**
      * Constructor for objects of class Friend
@@ -32,7 +34,7 @@ public class Friend {
         this.postalCode = postalCode;
         this.city = city;
         this.phone = phone;
-        loanContainer = new LoanContainer();
+        loanController = new LoanController();
     }
 
     /**
@@ -58,8 +60,8 @@ public class Friend {
      * 
      * @return the LPs loaned
      */
-    public LoanContainer getLoans() {
-        return loanContainer;
+    public LoanController getLoans() {
+        return loanController;
     }
 
     /**

@@ -18,7 +18,7 @@ public class LPContainer {
     /**
      * Constructor for objects of class LPContainer
      */
-    public LPContainer() {
+    private LPContainer() {
         // initialise instance variables
         lps = new HashMap<>();
     }

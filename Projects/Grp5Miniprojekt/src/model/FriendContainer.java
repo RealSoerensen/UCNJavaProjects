@@ -16,7 +16,7 @@ public class FriendContainer {
     /**
      * Constructor for objects of class FriendContainer
      */
-    public FriendContainer() {
+    private FriendContainer() {
         // initialise instance variables
         friends = new ArrayList<>();
     }
@@ -71,30 +71,12 @@ public class FriendContainer {
     }
 
     /**
-     * Get friend by name and phone.
-     * 
-     * @param name
-     * @return Friend
-     */
-    public Friend findFriend(String phoneNum) {
-        boolean found = false;
-        Friend neededfriend = null;
-        for (int i = 0; i < friends.size() && !found; i++) {
-            Friend currentfriend = friends.get(i);
-            if (currentfriend.getPhone().equals(phoneNum)) {
-                found = true;
-                neededfriend = currentfriend;
-            }
-        }
-        return neededfriend;
-    }
-
-    /**
      * Removes a friend from the container.
      * 
      * @param index the index of the friend to be removed
      */
     public void removeFriend(Friend friend) {
+
         friends.remove(friend);
     }
 

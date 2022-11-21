@@ -2,11 +2,12 @@ package tests;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+
+import controller.FriendController;
+import controller.LPController;
+import controller.LoanController;
 import tui.Menus.FriendMenu;
-import model.FriendContainer;
-import model.LPContainer;
 import model.Loan;
-import model.LoanContainer;
 import model.LP;
 import model.Copy;
 import model.Friend;
@@ -14,29 +15,29 @@ import model.Friend;
 import java.util.Date;
 
 public class Tests {
-	FriendContainer friendContainer = new FriendContainer();
-	LPContainer lpContainer = new LPContainer();
-	FriendMenu friendMenu = new FriendMenu(friendContainer, lpContainer);
-	
-	@Test
-	void testReturnLoanFromRemovedFriend() {
-        friendContainer.createFriend("Mogens", "Hovedgaden 1", "1234", "Byen", "12345678");
+    FriendController friendController = new FriendController();
+    LPController lpController = new LPController();
+    FriendMenu friendMenu = new FriendMenu();
+
+    @Test
+    void testReturnLoanFromRemovedFriend() {
+        friendController.createFriend("Mogens", "Hovedgaden 1", "1234", "Byen", "12345678");
 
         // Create a new LP
         LP lp = new LP(0, "Sang 1", "Hans", "1990");
-        lpContainer.addLP(lp);
+        lpController.addLP(lp);
         // Create copy of lp
         Copy copy = new Copy(lp, 123123, new Date(), 39.99);
-        lpContainer.addCopy(copy);
-        //Get friend
-        Friend friend = friendContainer.getFriend(0);
+        lpController.addCopy(copy);
+        // Get friend
+        Friend friend = friendController.findFriend("12345678");
         // get loancontainer from friend
-        LoanContainer loanContainer = friend.getLoans();
+        LoanController loanController = friend.getLoans();
         // Create new loan and add to loancontainer
         Loan newLoan = new Loan(copy, 0, new Date());
-        loanContainer.addLoan(newLoan);
-        
-		friendMenu.removeFriends();
-		Assert.assertEquals(0, loanContainer.getNumberOfLoans());
-	}
+        loanController.addLoan(newLoan);
+
+        friendMenu.removeFriends();
+        Assert.assertEquals(0, loanController.getNumberOfLoans());
+    }
 }

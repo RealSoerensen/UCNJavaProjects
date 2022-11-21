@@ -1,11 +1,10 @@
 package tui.Menus;
 
-import model.LPContainer;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import controller.LPController;
 import model.Copy;
 import model.LP;
 import tui.TextInput;
@@ -19,7 +18,7 @@ import tui.TextOptions;
  */
 public class LPMenu {
     // instance variables
-    private LPContainer lpContainer;
+    private LPController lpController;
     private TextInput textInput;
 
     /**
@@ -27,8 +26,8 @@ public class LPMenu {
      * 
      * @param LPContainer
      */
-    public LPMenu(LPContainer lpContainer) {
-        this.lpContainer = lpContainer;
+    public LPMenu() {
+        lpController = new LPController();
         textInput = new TextInput();
     }
 
@@ -93,14 +92,14 @@ public class LPMenu {
         System.out.println("Indtast årstal: ");
         String year = textInput.getStringInput();
         // Check if the LP already exists
-        LP oldLp = lpContainer.findLP(barcode);
+        LP oldLp = lpController.findLP(barcode);
         if (oldLp != null) {
             System.out.println("LP'en findes allerede");
         } else {
             // Create a new LP
             LP lp = new LP(barcode, title, artist, year);
             // Add the LP to the LPContainer
-            lpContainer.addLP(lp);
+            lpController.addLP(lp);
             System.out.println("LP'en er tilføjet");
         }
     }
@@ -112,7 +111,7 @@ public class LPMenu {
         System.out.println("\n********** Rediger LP **********");
         System.out.println("Indtast barcode: ");
         long barcode = textInput.getLongInput();
-        LP lp = lpContainer.findLP(barcode);
+        LP lp = lpController.findLP(barcode);
         if (lp != null) {
             System.out.println("\n");
             System.out.println("Nuværende information på LP'en: ");
@@ -140,8 +139,8 @@ public class LPMenu {
         System.out.println("\n********** Fjern LP **********");
         System.out.println("Indtast barcode: ");
         long barcode = textInput.getLongInput();
-        if (lpContainer.findLP(barcode) != null) {
-            lpContainer.removeLPByBarCode(barcode);
+        if (lpController.findLP(barcode) != null) {
+            lpController.removeLPByBarCode(barcode);
             System.out.println("LP'en er slettet");
         } else {
             System.out.println("LP'en findes ikke");
@@ -158,7 +157,7 @@ public class LPMenu {
         System.out.println("\n********** Opret kopi af LP **********");
         System.out.println("Indtast barcode på LP'en der skal laves en kopi på: ");
         long barcode = textInput.getLongInput();
-        LP lp = lpContainer.findLP(barcode);
+        LP lp = lpController.findLP(barcode);
         if (lp != null) {
             System.out.println("Indtast serienummer: ");
             int serialNumber = textInput.getIntInput();
@@ -175,9 +174,9 @@ public class LPMenu {
                 return;
 
             // Check if serial number is already in use
-            if (lpContainer.findLPCopy(lp, serialNumber) == null) {
+            if (lpController.findLPCopy(lp, serialNumber) == null) {
                 Copy copy = new Copy(lp, serialNumber, date, newPurchasePrice);
-                lpContainer.addCopy(copy);
+                lpController.addCopy(copy);
                 System.out.println("Kopi tilføjet");
             } else {
                 System.out.println("Serienummer allerede i brug");
@@ -196,14 +195,14 @@ public class LPMenu {
         System.out.println("\n********** Rediger kopi **********");
         System.out.println("Indtast barcode på LP'en der har en kopi der skal redigeres: ");
         long barcode = textInput.getLongInput();
-        LP lp = lpContainer.findLP(barcode);
+        LP lp = lpController.findLP(barcode);
         if (lp == null) {
             System.out.println("LP'en findes ikke");
             return;
         }
         System.out.println("Indtast serienummer på kopi der skal redigeres: ");
         int serialNumber = textInput.getIntInput();
-        Copy copy = lpContainer.findLPCopy(lp, serialNumber);
+        Copy copy = lpController.findLPCopy(lp, serialNumber);
         if (copy == null) {
             System.out.println("Kopien findes ikke");
             return;
@@ -236,13 +235,13 @@ public class LPMenu {
         System.out.println("\n********** Slet kopi **********");
         System.out.println("Indtast barcode på LP'en der har en kopi der skal slettes: ");
         long barcode = textInput.getLongInput();
-        LP lp = lpContainer.findLP(barcode);
+        LP lp = lpController.findLP(barcode);
         if (lp != null) {
             System.out.println("Indtast serienummer på kopi der skal slettes: ");
             int serialNumber = textInput.getIntInput();
-            Copy copy = lpContainer.findLPCopy(lp, serialNumber);
+            Copy copy = lpController.findLPCopy(lp, serialNumber);
             if (copy != null) {
-                lpContainer.removeLPCopy(lp, serialNumber);
+                lpController.removeLPCopy(lp, serialNumber);
                 System.out.println("Kopien er slettet");
             } else {
                 System.out.println("Kopien findes ikke");
@@ -257,12 +256,12 @@ public class LPMenu {
      */
     private void showAllLPs() {
         System.out.println("\n********** Udskriv alle LP's **********");
-        for (LP lp : lpContainer.getLPs()) {
+        for (LP lp : lpController.getLPs()) {
             System.out.println("\n");
             lp.printInfo();
-            if (lpContainer.getCopies(lp).size() > 0) {
+            if (lpController.getCopies(lp).size() > 0) {
                 System.out.println("Kopier: ");
-                for (Copy copy : lpContainer.getCopies(lp)) {
+                for (Copy copy : lpController.getCopies(lp)) {
                     copy.printInfo();
                 }
             } else {

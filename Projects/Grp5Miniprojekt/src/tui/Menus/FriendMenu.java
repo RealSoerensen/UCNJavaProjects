@@ -2,10 +2,10 @@ package tui.Menus;
 
 import java.util.ArrayList;
 
+import controller.FriendController;
+import controller.LPController;
 import model.Copy;
 import model.Friend;
-import model.FriendContainer;
-import model.LPContainer;
 import model.Loan;
 import tui.TextInput;
 import tui.TextOptions;
@@ -18,19 +18,16 @@ import tui.TextOptions;
  */
 public class FriendMenu {
     // instance variables
-    TextInput textInput;
-    FriendContainer friendContainer;
-    LPContainer lpContainer;
+    private TextInput textInput;
+    private FriendController friendController;
+    private LPController lpController;
 
     /**
      * Constructor for objects of class FriendMenu
-     * 
-     * @param friendContainer
-     * @param lpContainer
      */
-    public FriendMenu(FriendContainer friendContainer, LPContainer lpContainer) {
-        this.friendContainer = friendContainer;
-        this.lpContainer = lpContainer;
+    public FriendMenu() {
+        friendController = new FriendController();
+        lpController = new LPController();
         textInput = new TextInput();
     }
 
@@ -82,9 +79,9 @@ public class FriendMenu {
         // Ask for the phone number of the friend
         System.out.println("Indtast telefonnummer: ");
         String phone = textInput.getStringInput();
-        if (friendContainer.findFriend(phone) == null) {
+        if (friendController.findFriend(phone) == null) {
             Friend friend = new Friend(name, address, postalCode, city, phone);
-            friendContainer.addFriend(friend);
+            friendController.addFriend(friend);
             // Print a message
             System.out.println("Ven oprettet");
         } else {
@@ -105,7 +102,7 @@ public class FriendMenu {
         textInput.getStringInput();
         String phone = textInput.getStringInput();
         // Find the friend
-        Friend friend = friendContainer.findFriend(phone);
+        Friend friend = friendController.findFriend(phone);
         // If the friend is found
         if (friend != null) {
             // Ask for the new name of the friend
@@ -149,7 +146,7 @@ public class FriendMenu {
         textInput.getStringInput();
         String phone = textInput.getStringInput();
         // Find the friend
-        Friend friend = friendContainer.findFriend(phone);
+        Friend friend = friendController.findFriend(phone);
         // If the friend is found
         if (friend != null) {
             ArrayList<Loan> loans = friend.getLoans().getLoanList();
@@ -157,11 +154,11 @@ public class FriendMenu {
             for (int i = loans.size() - 1; i >= 0; i--) {
                 Loan loan = loans.get(i);
                 friend.getLoans().removeLoan(loan);
-                ArrayList<Copy> copies = lpContainer.getCopies(loan.getCopy().getOriginalLp());
+                ArrayList<Copy> copies = lpController.getCopies(loan.getCopy().getOriginalLp());
                 copies.add(loan.getCopy());
             }
             // Remove the friend
-            friendContainer.removeFriend(friend);
+            friendController.removeFriend(friend);
             System.out.println("Ven fjernet");
         } else {
             // Print a message
@@ -175,7 +172,7 @@ public class FriendMenu {
     private void showAllFriends() {
         System.out.println("\n********** Vis alle venner **********");
         // Print all friends
-        for (Friend friend : friendContainer.getFriends()) {
+        for (Friend friend : friendController.getFriends()) {
             System.out.println("\n");
             System.out.println("Navn: " + friend.getName());
             System.out.println("Adresse: " + friend.getAddress());

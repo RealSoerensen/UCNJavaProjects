@@ -1,7 +1,5 @@
 package tui.Menus;
 
-import model.LPContainer;
-import model.FriendContainer;
 import tui.TextOptions;
 
 /**
@@ -23,11 +21,11 @@ public class MainMenu {
      * 
      * @param friend
      */
-    public MainMenu(FriendContainer friendContainer, LPContainer lpContainer) {
+    public MainMenu() {
         // initialise instance variables
-        loanMenu = new LoanMenu(friendContainer, lpContainer);
-        lpMenu = new LPMenu(lpContainer);
-        friendMenu = new FriendMenu(friendContainer, lpContainer);
+        loanMenu = new LoanMenu();
+        lpMenu = new LPMenu();
+        friendMenu = new FriendMenu();
     }
 
     /**

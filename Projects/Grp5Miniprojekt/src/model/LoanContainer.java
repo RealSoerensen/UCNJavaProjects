@@ -16,7 +16,7 @@ public class LoanContainer {
     /**
      * Constructor for objects of class LoanContainer
      */
-    public LoanContainer() {
+    private LoanContainer() {
         // initialise instance variables
         loans = new ArrayList<>();
     }
@@ -65,7 +65,7 @@ public class LoanContainer {
     public Loan getLoanFromList(int serialNumber) {
         Loan loan = null;
         for (int i = 0; i < getLoanList().size(); i++) {
-        	Copy copy = loans.get(i).getCopy();
+            Copy copy = loans.get(i).getCopy();
             if (copy.getSerialNumber() == serialNumber) {
                 loan = loans.get(i);
             }

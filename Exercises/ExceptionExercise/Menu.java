@@ -1,3 +1,5 @@
+package Exercises.ExceptionExercise;
+
 public class Menu {
     private MenuInput menuInput;
     private AccountController accountCtrl;

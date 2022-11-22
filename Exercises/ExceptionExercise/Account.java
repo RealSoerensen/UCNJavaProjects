@@ -1,4 +1,6 @@
-import Exceptions.BalanceUnderrunException;
+package Exercises.ExceptionExercise;
+
+import Exercises.ExceptionExercise.Exceptions.BalanceUnderrunException;
 
 /**
  * Account

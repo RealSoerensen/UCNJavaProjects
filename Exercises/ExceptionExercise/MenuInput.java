@@ -1,3 +1,5 @@
+package Exercises.ExceptionExercise;
+
 import java.util.Scanner;
 
 public class MenuInput {

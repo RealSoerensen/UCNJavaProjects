@@ -1,10 +1,13 @@
-import java.util.ArrayList;
+package Exercises.ExceptionExercise;
 
-import Exceptions.DuplicateAccountNameException;
-import Exceptions.InvalidAccountNameException;
+import java.util.ArrayList;
+import java.util.List;
+
+import Exercises.ExceptionExercise.Exceptions.DuplicateAccountNameException;
+import Exercises.ExceptionExercise.Exceptions.InvalidAccountNameException;
 
 public class AccountContainer {
-    private ArrayList<Account> accounts;
+    private List<Account> accounts;
     private static AccountContainer instance;
 
     private AccountContainer() {

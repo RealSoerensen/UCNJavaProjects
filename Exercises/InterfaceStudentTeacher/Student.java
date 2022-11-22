@@ -1,3 +1,5 @@
+package Exercises.InterfaceStudentTeacher;
+
 public class Student extends Person implements StudentIF {
     private String major;
 

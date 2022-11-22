@@ -1,3 +1,5 @@
+package Exercises.InterfaceStudentTeacher;
+
 public class Teacher extends Person implements TeacherIF {
     private double salary;
 

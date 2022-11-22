@@ -42,8 +42,7 @@ public class RPNCalculator {
                 result = calculate(stack.pop(), stack.pop(), token);
                 stack.push(result);
             } else if (isPlusMinus(token)) {
-                double operand = stack.pop();
-                result = plusMinus(operand);
+                result = plusMinus(stack.pop());
                 stack.push(result);
             } else {
                 System.out.println("Invalid input");

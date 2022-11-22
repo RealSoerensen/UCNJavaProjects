@@ -2,13 +2,14 @@ package Exercises.RPNCalculator;
 
 public class LinkedStack<T> implements StackIF<T> {
     private int size;
-    private Node top;
+    private Node<T> top;
 
-    protected class Node {
+    @SuppressWarnings("hiding")
+    private class Node<T> {
         private T value;
-        private Node next;
+        private LinkedStack<T>.Node<T> next;
 
-        public Node(T value, LinkedStack<T>.Node next) {
+        public Node(T value, LinkedStack<T>.Node<T> next) {
             this.value = value;
             this.next = next;
         }
@@ -17,7 +18,7 @@ public class LinkedStack<T> implements StackIF<T> {
             return value;
         }
 
-        public LinkedStack<T>.Node getNext() {
+        public LinkedStack<T>.Node<T> getNext() {
             return next;
         }
     }
@@ -29,7 +30,7 @@ public class LinkedStack<T> implements StackIF<T> {
 
     @Override
     public void push(T t) {
-        Node newNode = new Node(t, top);
+        Node<T> newNode = new Node<T>(t, top);
         newNode.next = top;
         top = newNode;
         size++;
@@ -41,8 +42,8 @@ public class LinkedStack<T> implements StackIF<T> {
             return null;
         }
 
-        T value = top.value;
-        top = top.next;
+        T value = top.getValue();
+        top = top.getNext();
         size--;
         return value;
     }
@@ -53,7 +54,7 @@ public class LinkedStack<T> implements StackIF<T> {
             return null;
         }
 
-        return top.value;
+        return top.getValue();
     }
 
     @Override

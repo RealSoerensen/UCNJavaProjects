@@ -43,18 +43,7 @@ public class AccountController {
     }
 
     public boolean transferFunds(String fromAccountName, String toAccountName, double amount) {
-        boolean success = false;
-        try {
-            Account fromAccount = accountContainer.findByName(fromAccountName);
-            Account toAccount = accountContainer.findByName(toAccountName);
-            fromAccount.withdraw(amount);
-            toAccount.deposit(amount);
-            success = true;
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            success = false;
-        }
-        return success;
+        return accountContainer.transferFunds(fromAccountName, toAccountName, amount);
     }
 
     public void printAccounts() {

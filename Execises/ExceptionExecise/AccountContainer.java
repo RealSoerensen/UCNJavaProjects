@@ -44,6 +44,21 @@ public class AccountContainer {
         }
     }
 
+    public boolean transferFunds(String fromAccountName, String toAccountName, double amount) {
+        boolean success = false;
+        try {
+            Account fromAccount = findByName(fromAccountName);
+            Account toAccount = findByName(toAccountName);
+            fromAccount.withdraw(amount);
+            toAccount.deposit(amount);
+            success = true;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            success = false;
+        }
+        return success;
+    }
+
     public void printAccounts() {
         for (Account a : accounts) {
             System.out.println(a.getName() + ": " + a.getBalance());

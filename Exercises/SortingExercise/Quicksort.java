@@ -12,7 +12,7 @@ public class Quicksort {
     }
 
     public void sort() {
-        quicksort(0, array.length);
+        quicksort(0, array.length - 1);
     }
 
     public void quicksort(int start, int end) {
@@ -21,34 +21,32 @@ public class Quicksort {
         }
 
         int pivotIndex = partition(start, end);
-        quicksort(start, pivotIndex);
+        quicksort(start, pivotIndex - 1);
         quicksort(pivotIndex + 1, end);
     }
 
     private int partition(int start, int end) {
         // This is using the first element as the pivot
-        int pivot = array[start];
-        int i = start;
-        int j = end;
+        int pivot = array[end];
+        int i = start - 1;
+        for (int j = start; j < end; j++) {
+            // If current element is smaller than or
+            // equal to pivot
+            if (array[j] <= pivot) {
+                i++;
 
-        while (i < j) {
-            // NOTE: empty loop body
-            while (i < j && array[--j] >= pivot)
-                ;
-            if (i < j) {
+                // swap array[i] and array[j]
+                int temp = array[i];
                 array[i] = array[j];
-            }
-
-            // NOTE: empty loop body
-            while (i < j && array[++i] <= pivot)
-                ;
-            if (i < j) {
-                array[j] = array[i];
+                array[j] = temp;
             }
         }
 
-        array[j] = pivot;
-        return j;
-    }
+        // swap array[i+1] and array[high] (or pivot)
+        int temp = array[i + 1];
+        array[i + 1] = array[end];
+        array[end] = temp;
 
+        return i + 1;
+    }
 }

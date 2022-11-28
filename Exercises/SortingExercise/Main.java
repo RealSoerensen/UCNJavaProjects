@@ -8,6 +8,5 @@ public class Main {
         for (int i = 0; i < quicksort.getArray().length; i++) {
             System.out.println(array[i]);
         }
-
     }
 }

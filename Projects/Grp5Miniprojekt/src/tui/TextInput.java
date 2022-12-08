@@ -28,26 +28,12 @@ public class TextInput {
      * @return A number
      */
     public static int inputNumber(String question) {
-        int number = 0;
         printQuesiton(question);
         while (!sc.hasNextInt()) {
             System.out.println("Input skal være et tal - prøv igen");
             sc.nextInt();
         }
-        number = sc.nextInt();
-        return number;
-    }
-
-    /**
-     * It asks the user to input a string.
-     * 
-     * @param question The question you want to ask the user.
-     * @return A string
-     */
-    public static String inputString(String question) {
-        printQuesiton(question);
-        String input = sc.nextLine();
-        return input;
+        return sc.nextInt();
     }
 
     /**
@@ -56,8 +42,7 @@ public class TextInput {
      * @return A string
      */
     public String getStringInput() {
-        String input = sc.nextLine();
-        return input;
+        return sc.nextLine();
     }
 
     /**
@@ -66,8 +51,7 @@ public class TextInput {
      * @return The number that the user inputs.
      */
     public int getIntInput() {
-        int number = sc.nextInt();
-        return number;
+        return sc.nextInt();
     }
 
     /**
@@ -76,8 +60,7 @@ public class TextInput {
      * @return The number that the user inputs.
      */
     public double getDoubleInput() {
-        double number = sc.nextDouble();
-        return number;
+        return sc.nextDouble();
     }
 
     /**
@@ -86,8 +69,7 @@ public class TextInput {
      * @return The next long value that the user inputs.
      */
     public long getLongInput() {
-        long number = sc.nextLong();
-        return number;
+        return sc.nextLong();
     }
 
     /**

@@ -40,3 +40,4 @@ java/build/**
 *.bluej
 
 .metadata/
+*.zip

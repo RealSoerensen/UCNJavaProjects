@@ -2,11 +2,11 @@ package src;
 
 import java.sql.*;
 
-public class Main {
+public class TutorialDB {
 
     // The values of the constants should be read from a configuration file, etc.
     // You need to change the constants to the connection properties of your DB
-    private static final String DBNAME = "TestDB";
+    private static final String DBNAME = "TutorialDB";
     private static final String SERVERNAME = "\\MSI";
     private static final String PORTNUMBER = "1433";
     private static final String USERNAME = "sa";
@@ -14,7 +14,7 @@ public class Main {
 
     public static void main(String[] args)  {
         try {
-            new Main().tryMe();
+            new TutorialDB().tryMe();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -24,6 +24,14 @@ public class Main {
     public void tryMe() throws SQLException {
         Connection connection = getConnection();
         printMetadata(connection);
+        Statement s = connection.createStatement();
+        s.execute("SELECT * FROM dbo.Customers");
+        ResultSet rs = s.getResultSet();
+        while (rs.next()) {
+            System.out.println(rs.getString("Name"));
+        }
+        rs.close();
+        connection.close();
     }
 
     public Connection getConnection() throws SQLException {
@@ -46,7 +54,6 @@ public class Main {
         System.out.println("JDBC Driver: " + metadata.getDriverName());
         System.out.println("Driver Version: " + metadata.getDriverVersion());
         System.out.println("\n");
-        connection.close();
     }
 
 }

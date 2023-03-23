@@ -16,11 +16,8 @@ public class RegisterDogWindow {
 	private JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
-	private Member member;
-
-
-	public void run(Member member) {
-		this.member = member;
+	
+	public void run() {
 		try {
 			RegisterDogWindow window = new RegisterDogWindow();
 			window.frame.setVisible(true);
